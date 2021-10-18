@@ -1,0 +1,15 @@
+services:
+  _defaults:
+    autowire: false
+    autoconfigure: false
+    public: false
+
+  # DBAL
+  connection.mysql.drinksco:
+    class: Doctrine\DBAL\Connection
+    factory: 'Doctrine\DBAL\DriverManager::getConnection'
+    arguments:
+      $params:
+        url: '%env(DATABASE_URL)%'
+        driver: pdo_mysql
+        charset: UTF8

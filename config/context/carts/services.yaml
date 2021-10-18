@@ -1,0 +1,98 @@
+imports:
+  - { resource: entrypoint/commands.yaml }
+  - { resource: repositories.yaml }
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Orders\Carts\Domain\Service\:
+    autowire: true
+    autoconfigure: true
+    resource: '../../../src/Orders/Carts/Domain/Service/*'
+
+  App\Orders\Carts\Application\Command\Item\AddItem\AddItemHandler:
+    class: App\Orders\Carts\Application\Command\Item\AddItem\AddItemHandler
+    arguments:
+      $productFinder: '@domain.service.product.finder'
+      $addItemToCart: '@domain.service.item.add_to_cart'
+      $byIdAndCartIdItemFinder: '@App\Orders\Carts\Domain\Service\Item\ByIdAndCartIdItemFinder'
+      $increaseAmountItemFromCartUpdater: '@domain.service.item.increase-amount'
+    tags:
+      - { name: tactician.handler, command: App\Orders\Carts\Application\Command\Item\AddItem\AddItemCommand }
+
+  domain.service.item.add_to_cart:
+    class: App\Orders\Carts\Domain\Service\Item\AddItemToCart
+    arguments:
+      $itemRepository: '@App\Orders\Carts\Domain\Model\Item\ItemRepository'
+
+  App\Orders\Carts\Application\Query\Cart\TotalAmount\TotalAmountHandler:
+    class: App\Orders\Carts\Application\Query\Cart\TotalAmount\TotalAmountHandler
+    arguments:
+      $itemRepository: '@App\Orders\Carts\Domain\Model\Item\ItemRepository'
+    tags:
+      - { name: tactician.handler, command: App\Orders\Carts\Application\Query\Cart\TotalAmount\TotalAmountQuery }
+
+  App\Orders\Carts\Application\Command\Item\RemoveItem\RemoveItemHandler:
+    class: App\Orders\Carts\Application\Command\Item\RemoveItem\RemoveItemHandler
+    arguments:
+      $itemFromCartFinder: '@domain.service.item.finder'
+      $itemFromCartRemover: '@domain.service.item.remover'
+    tags:
+      - { name: tactician.handler, command: App\Orders\Carts\Application\Command\Item\RemoveItem\RemoveItemCommand }
+
+  domain.service.item.finder:
+    class: App\Orders\Carts\Domain\Service\Item\ItemFromCartFinder
+    arguments:
+      $itemRepository: '@App\Orders\Carts\Domain\Model\Item\ItemRepository'
+
+  domain.service.item.remover:
+    class: App\Orders\Carts\Domain\Service\Item\ItemFromCartRemover
+    arguments:
+      $itemRepository: '@App\Orders\Carts\Domain\Model\Item\ItemRepository'
+
+  App\Orders\Carts\Application\Command\Item\IncreaseItemAmount\IncreaseItemAmountHandler:
+    class: App\Orders\Carts\Application\Command\Item\IncreaseItemAmount\IncreaseItemAmountHandler
+    arguments:
+      $itemFromCartFinder: '@domain.service.item.finder'
+      $increaseAmountItemFromCartUpdater: '@domain.service.item.increase-amount'
+    tags:
+      - { name: tactician.handler, command: App\Orders\Carts\Application\Command\Item\IncreaseItemAmount\IncreaseItemAmountCommand }
+
+  domain.service.item.increase-amount:
+    class: App\Orders\Carts\Domain\Service\Item\IncreaseAmountItemFromCartUpdater
+    arguments:
+      $itemRepository: '@App\Orders\Carts\Domain\Model\Item\ItemRepository'
+
+  App\Orders\Carts\Application\Command\Item\DecreaseItemAmount\DecreaseItemAmountHandler:
+    class: App\Orders\Carts\Application\Command\Item\DecreaseItemAmount\DecreaseItemAmountHandler
+    arguments:
+      $itemFromCartFinder: '@domain.service.item.finder'
+      $decreaseAmountItemFromCartUpdater: '@domain.service.item.decrease-amount'
+    tags:
+      - { name: tactician.handler, command: App\Orders\Carts\Application\Command\Item\DecreaseItemAmount\DecreaseItemAmountCommand }
+
+  domain.service.item.decrease-amount:
+    class: App\Orders\Carts\Domain\Service\Item\DecreaseAmountItemFromCartUpdater
+    arguments:
+      $itemRepository: '@App\Orders\Carts\Domain\Model\Item\ItemRepository'
+
+  App\Orders\Carts\Application\Command\Cart\ConfirmCart\ConfirmCartHandler:
+    class: App\Orders\Carts\Application\Command\Cart\ConfirmCart\ConfirmCartHandler
+    arguments:
+      $confirmItemsFromCart: '@domain.service.cart.confirm'
+    tags:
+      - { name: tactician.handler, command: App\Orders\Carts\Application\Command\Cart\ConfirmCart\ConfirmCartCommand }
+
+  domain.service.cart.confirm:
+    class: App\Orders\Carts\Domain\Service\Cart\ConfirmItemsFromCart
+    arguments:
+      $itemRepository: '@App\Orders\Carts\Domain\Model\Item\ItemRepository'
+
+  App\Orders\Carts\Application\Command\Cart\DeleteCart\DeleteCartHandler:
+    class: App\Orders\Carts\Application\Command\Cart\DeleteCart\DeleteCartHandler
+    arguments:
+      $itemRepository: '@App\Orders\Carts\Domain\Model\Item\ItemRepository'
+    tags:
+      - { name: tactician.handler, command: App\Orders\Carts\Application\Command\Cart\DeleteCart\DeleteCartCommand }

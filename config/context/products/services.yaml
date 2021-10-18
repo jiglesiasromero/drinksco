@@ -1,0 +1,44 @@
+imports:
+  - { resource: entrypoint/commands.yaml }
+  - { resource: repositories.yaml }
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Orders\Products\Domain\Service\:
+    autowire: true
+    autoconfigure: true
+    resource: '../../../src/Orders/Products/Domain/Service/*'
+
+  App\Orders\Products\Application\Command\Product\Register\RegisterProductHandler:
+    class: App\Orders\Products\Application\Command\Product\Register\RegisterProductHandler
+    arguments:
+      $sellerFinder: '@domain.service.seller.finder'
+      $productCreator: '@domain.service.product.creator'
+    tags:
+      - { name: tactician.handler, command: App\Orders\Products\Application\Command\Product\Register\RegisterProductCommand }
+
+  domain.service.product.creator:
+    class: App\Orders\Products\Domain\Service\Product\ProductCreator
+    arguments:
+      $productRepository: '@App\Orders\Products\Domain\Model\Product\ProductRepository'
+
+  App\Orders\Products\Application\Command\Product\Delete\DeleteProductHandler:
+    class: App\Orders\Products\Application\Command\Product\Delete\DeleteProductHandler
+    arguments:
+      $productFinder: '@domain.service.product.finder'
+      $productDeleter: '@domain.service.product.deleter'
+    tags:
+      - { name: tactician.handler, command: App\Orders\Products\Application\Command\Product\Delete\DeleteProductCommand }
+
+  domain.service.product.finder:
+    class: App\Orders\Products\Domain\Service\Product\ProductFinder
+    arguments:
+      $productRepository: '@App\Orders\Products\Domain\Model\Product\ProductRepository'
+
+  domain.service.product.deleter:
+    class: App\Orders\Products\Domain\Service\Product\ProductDeleter
+    arguments:
+      $productRepository: '@App\Orders\Products\Domain\Model\Product\ProductRepository'

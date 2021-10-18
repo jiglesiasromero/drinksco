@@ -1,0 +1,11 @@
+includes:
+  - vendor/phpstan/phpstan-symfony/extension.neon
+parameters:
+  checkMissingIterableValueType: false
+  excludes_analyse:
+    - %rootDir%/../../../tests/*
+    - %rootDir%/../../../public/*
+    - %rootDir%/../../../config/*
+    - %rootDir%/../../../migrations/*
+  symfony:
+    container_xml_path: null

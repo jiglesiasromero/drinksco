@@ -1,0 +1,91 @@
+### Add seller
+
+POST http://localhost:8080/drinksco/v1/sellers
+Content-Type: application/json
+
+{
+  "name": "Farmacia Puig de Dou"
+}
+
+### Delete seller
+
+DELETE http://localhost:8080/drinksco/v1/sellers/c28b4d13-48d0-4751-b140-ff79ef5fc9ee
+Content-Type: application/json
+
+{
+}
+
+### Add product
+
+POST http://localhost:8080/drinksco/v1/products
+Content-Type: application/json
+
+{
+  "name": "OHO Loción Corporal Allskin Con Aceite de Oliva",
+  "price": 12,
+  "seller_id": "92aedde5-e82b-40cb-b94a-2ff8b29b926d"
+}
+
+### Delete product
+
+DELETE http://localhost:8080/drinksco/v1/products/33905367-8f02-45f8-b9a0-5c70b4dfac49
+Content-Type: application/json
+
+{
+}
+
+### Add product to cart
+
+POST http://localhost:8080/drinksco/v1/items/add-product
+Content-Type: application/json
+
+{
+  "product_id": "8f192aa2-55e9-4fe7-8659-c8031e61eeee",
+  "cart_id": "20ca2c58-844a-485f-9d6a-8aaf7d9313bc"
+}
+
+### Get total amount of the cart
+
+GET http://localhost:8080/drinksco/v1/carts/670f45e8-da4d-4b4c-9875-eb3a666cdf9d/total-amount
+
+### Remove item from cart
+
+DELETE http://localhost:8080/drinksco/v1/items/ad10c963-c1fe-48a8-b452-f0cc82cbb97b/remove-from-cart
+Content-Type: application/json
+
+{
+}
+
+### Increase amount
+
+PATCH http://localhost:8080/drinksco/v1/items/33e92129-acf7-447e-9cc9-4537a83b8acf/increase-quantity
+Content-Type: application/json
+
+{
+}
+
+### Decrease amount
+
+PATCH http://localhost:8080/drinksco/v1/items/33e92129-acf7-447e-9cc9-4537a83b8acf/decrease-quantity
+Content-Type: application/json
+
+{
+}
+
+### Confirm cart
+
+PATCH http://localhost:8080/drinksco/v1/carts/20ca2c58-844a-485f-9d6a-8aaf7d9313bc/confirm-cart
+Content-Type: application/json
+
+{
+}
+
+### Delete cart
+
+DELETE http://localhost:8080/drinksco/v1/carts/670f45e8-da4d-4b4c-9875-eb3a666cdf9d
+Content-Type: application/json
+
+{
+}
+
+###

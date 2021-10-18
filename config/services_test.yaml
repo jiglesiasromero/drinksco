@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Tests\System\Infrastructure\Behat\FeatureContext:
+        class: App\Tests\System\Infrastructure\Behat\FeatureContext
+        arguments:
+            $sellerRepository: '@App\Orders\Sellers\Domain\Model\Seller\SellerRepository'
+            $baseUrl: 'http://nginx:80/'

@@ -1,0 +1,11 @@
+sellers_routes:
+  resource: context/sellers/entrypoint/routes.yaml
+  prefix: /drinksco
+
+products_routes:
+  resource: context/products/entrypoint/routes.yaml
+  prefix: /drinksco
+
+carts_routes:
+  resource: context/carts/entrypoint/routes.yaml
+  prefix: /drinksco

@@ -1,0 +1,36 @@
+### ITEMS
+item_to_cart:
+  path: /v1/items/add-product
+  controller: App\Orders\Carts\Entrypoint\Controller\ItemController::addProductToCart
+  methods: [POST]
+
+remove_item_from_cart:
+  path: /v1/items/{id}/remove-from-cart
+  controller: App\Orders\Carts\Entrypoint\Controller\ItemController::removeFromCart
+  methods: [DELETE]
+
+increase_item_amount:
+  path: /v1/items/{id}/increase-quantity
+  controller: App\Orders\Carts\Entrypoint\Controller\ItemController::increaseQuantity
+  methods: [PATCH]
+
+decrease_item_amount:
+  path: /v1/items/{id}/decrease-quantity
+  controller: App\Orders\Carts\Entrypoint\Controller\ItemController::decreaseQuantity
+  methods: [PATCH]
+
+### CARTS
+get_cart_total_amount:
+  path: /v1/carts/{id}/total-amount
+  controller: App\Orders\Carts\Entrypoint\Controller\CartController::totalCartAmount
+  methods: [GET]
+
+confirm_cart:
+  path: /v1/carts/{id}/confirm-cart
+  controller: App\Orders\Carts\Entrypoint\Controller\CartController::confirmCart
+  methods: [PATCH]
+
+delete_cart:
+  path: /v1/carts/{id}
+  controller: App\Orders\Carts\Entrypoint\Controller\CartController::deleteCart
+  methods: [DELETE]

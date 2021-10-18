@@ -1,0 +1,21 @@
+default:
+    suites:
+        sellers:
+            paths:
+                - tests/Orders/Sellers/Entrypoint/features
+            contexts:
+                - behatch:context:json
+                - behatch:context:rest
+                - Behat\MinkExtension\Context\MinkContext
+                - App\Tests\System\Infrastructure\Behat\FeatureContext:
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension:
+            bootstrap: 'tests/bootstrap.php'
+            kernel:
+                environment: test
+        Behatch\Extension: ~
+        Behat\MinkExtension:
+            sessions:
+                default:
+                    symfony: ~

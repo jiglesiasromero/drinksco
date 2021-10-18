@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: false
+    autoconfigure: false
+    public: false
+
+  App\Orders\Products\Domain\Model\Product\ProductRepository:
+    alias: App\Orders\Products\Infrastructure\Domain\Model\Product\DbalProductRepository
+
+  App\Orders\Products\Infrastructure\Domain\Model\Product\DbalProductRepository:
+    class: App\Orders\Products\Infrastructure\Domain\Model\Product\DbalProductRepository
+    arguments:
+      $connection: '@connection.mysql.drinksco'

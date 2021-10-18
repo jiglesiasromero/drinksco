@@ -1,0 +1,43 @@
+imports:
+  - { resource: entrypoint/commands.yaml }
+  - { resource: repositories.yaml }
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Orders\Sellers\Domain\Service\:
+    autowire: true
+    autoconfigure: true
+    resource: '../../../src/Orders/Sellers/Domain/Service/*'
+
+  App\Orders\Sellers\Application\Command\Seller\Register\RegisterSellerHandler:
+    class: App\Orders\Sellers\Application\Command\Seller\Register\RegisterSellerHandler
+    arguments:
+      $sellerCreator: '@domain.service.seller.creator'
+    tags:
+      - { name: tactician.handler, command: App\Orders\Sellers\Application\Command\Seller\Register\RegisterSellerCommand }
+
+  domain.service.seller.creator:
+    class: App\Orders\Sellers\Domain\Service\Seller\SellerCreator
+    arguments:
+      $sellerRepository: '@App\Orders\Sellers\Domain\Model\Seller\SellerRepository'
+
+  App\Orders\Sellers\Application\Command\Seller\Delete\DeleteSellerHandler:
+    class: App\Orders\Sellers\Application\Command\Seller\Delete\DeleteSellerHandler
+    arguments:
+      $sellerFinder: '@domain.service.seller.finder'
+      $sellerDeleter: '@domain.service.seller.deleter'
+    tags:
+      - { name: tactician.handler, command: App\Orders\Sellers\Application\Command\Seller\Delete\DeleteSellerCommand }
+
+  domain.service.seller.finder:
+    class: App\Orders\Sellers\Domain\Service\Seller\SellerFinder
+    arguments:
+      $sellerRepository: '@App\Orders\Sellers\Domain\Model\Seller\SellerRepository'
+
+  domain.service.seller.deleter:
+    class: App\Orders\Sellers\Domain\Service\Seller\SellerDeleter
+    arguments:
+      $sellerRepository: '@App\Orders\Sellers\Domain\Model\Seller\SellerRepository'

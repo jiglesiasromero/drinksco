@@ -1,0 +1,9 @@
+product_create:
+  path: /v1/products
+  controller: App\Orders\Products\Entrypoint\Controller\ProductController::create
+  methods: [POST]
+
+product_delete:
+  path: /v1/products/{id}
+  controller: App\Orders\Products\Entrypoint\Controller\ProductController::delete
+  methods: [DELETE]

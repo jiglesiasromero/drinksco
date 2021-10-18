@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: false
+    autoconfigure: false
+    public: false
+
+  App\Orders\Carts\Entrypoint\Controller\:
+    autowire: true
+    autoconfigure: true
+    resource: '../../../../src/Orders/Carts/Entrypoint/Controller/'
+    bind:
+      League\Tactician\CommandBus $commandBus: '@tactician.commandbus'
+    tags: [ 'controller.service_arguments' ]

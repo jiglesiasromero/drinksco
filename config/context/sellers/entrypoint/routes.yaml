@@ -1,0 +1,9 @@
+seller_create:
+  path: /v1/sellers
+  controller: App\Orders\Sellers\Entrypoint\Controller\SellerController::create
+  methods: [POST]
+
+seller_delete:
+  path: /v1/sellers/{id}
+  controller: App\Orders\Sellers\Entrypoint\Controller\SellerController::delete
+  methods: [DELETE]

@@ -1,0 +1,21 @@
+services:
+  _defaults:
+    autowire: false
+    autoconfigure: false
+    public: false
+
+  App\Orders\Carts\Domain\Model\Item\ItemRepository:
+    alias: App\Orders\Carts\Infrastructure\Domain\Model\Item\DbalItemRepository
+
+  App\Orders\Carts\Infrastructure\Domain\Model\Item\DbalItemRepository:
+    class: App\Orders\Carts\Infrastructure\Domain\Model\Item\DbalItemRepository
+    arguments:
+      $connection: '@connection.mysql.drinksco'
+
+  App\Orders\Carts\Domain\Service\Item\ByIdAndCartIdItemFinder:
+    alias: App\Orders\Carts\Infrastructure\Domain\Service\Item\DbalByIdAndCartIdItemFinder
+
+  App\Orders\Carts\Infrastructure\Domain\Service\Item\DbalByIdAndCartIdItemFinder:
+    class: App\Orders\Carts\Infrastructure\Domain\Service\Item\DbalByIdAndCartIdItemFinder
+    arguments:
+      $connection: '@connection.mysql.drinksco'
