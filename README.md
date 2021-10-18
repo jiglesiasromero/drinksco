@@ -1,4 +1,4 @@
-# Drinks % co Code Challenge
+# Drinks&Co Code Challenge
 
 ### Index
 1. [What do you need?](#what_do_you_need)
